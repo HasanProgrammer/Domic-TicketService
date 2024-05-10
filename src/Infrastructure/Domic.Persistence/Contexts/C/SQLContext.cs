@@ -19,7 +19,7 @@ public partial class SQLContext : DbContext
 public partial class SQLContext
 {
     public DbSet<Event> Events       { get; set; }
-    public DbSet<Template> Templates { get; set; }
+    public DbSet<Ticket> Templates { get; set; }
 }
 
 /*Config*/

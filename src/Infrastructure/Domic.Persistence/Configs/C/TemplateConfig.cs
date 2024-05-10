@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domic.Persistence.Configs.C;
 
-public class TemplateConfig : IEntityTypeConfiguration<Template>
+public class TemplateConfig : IEntityTypeConfiguration<Ticket>
 {
-    public void Configure(EntityTypeBuilder<Template> builder)
+    public void Configure(EntityTypeBuilder<Ticket> builder)
     {
         //PrimaryKey
         

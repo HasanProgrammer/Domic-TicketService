@@ -3,27 +3,27 @@ using Domic.Core.Domain.Exceptions;
 
 namespace Domic.Domain.Service.ValueObjects;
 
-public class TemplateValueObject : ValueObject
+public class Title : ValueObject
 {
     public readonly string Value;
 
     /// <summary>
     /// 
     /// </summary>
-    public TemplateValueObject() {}
+    public Title() {}
     
     /// <summary>
     /// 
     /// </summary>
     /// <param name="value"></param>
     /// <exception cref="InValidValueObjectException"></exception>
-    public TemplateValueObject(string value)
+    public Title(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new DomainException("فیلد مربوطه الزامی می باشد !");
+            throw new DomainException("فیلد عنوان الزامی می باشد !");
 
-        if (value.Length is > 500 or < 100)
-            throw new DomainException("فیلد مربوطه نباید بیشتر از 500 و کمتر از 100 عبارت داشته باشد !");
+        if (value.Length is > 200 or < 5)
+            throw new DomainException("فیلد عنوان نباید بیشتر از 200 و کمتر از 5 عبارت داشته باشد !");
 
         Value = value;
     }
