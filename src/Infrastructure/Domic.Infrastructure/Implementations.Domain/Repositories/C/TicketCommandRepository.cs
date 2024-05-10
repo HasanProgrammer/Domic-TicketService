@@ -3,11 +3,11 @@ using Domic.Persistence.Contexts.C;
 
 namespace Domic.Infrastructure.Implementations.Domain.Repositories.C;
 
-public class TemplateCommandRepository : ITemplateCommandRepository
+public class TicketCommandRepository : ITicketCommandRepository
 {
     private readonly SQLContext _sqlContext;
 
-    public TemplateCommandRepository(SQLContext sqlContext)
+    public TicketCommandRepository(SQLContext sqlContext)
     {
         _sqlContext = sqlContext;
     }
