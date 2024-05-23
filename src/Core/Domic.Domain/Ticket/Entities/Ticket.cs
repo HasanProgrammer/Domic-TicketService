@@ -82,30 +82,104 @@ public class Ticket : Entity<string>
     /// <summary>
     /// 
     /// </summary>
-    public void Active(IDateTime dateTime)
+    /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
+    /// <param name="title"></param>
+    /// <param name="description"></param>
+    /// <param name="priority"></param>
+    /// <param name="status"></param>
+    /// <param name="updatedBy"></param>
+    /// <param name="updatedRoles"></param>
+    public void Change(IDateTime dateTime, ISerializer serializer, string title, string description, Priority priority,
+        Status status, string updatedBy, IReadOnlyCollection<string> updatedRoles
+    )
     {
-        IsActive = IsActive.Active;
+        var roles = serializer.Serialize(updatedRoles);
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
+
+        Title = new Title(title);
+        Description = new Description(description);
+        Priority = priority;
+        Status = status;
+        UpdatedBy = updatedBy;
+        UpdatedRole = roles;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
         
-        /*AddEvent(
-            new TemplateActived {
-                Id       = Id ,
-                IsActive = IsActive == IsActive.Active
+        AddEvent(
+            new TicketUpdated {
+                Id = Id,
+                Title = title,
+                Description = description,
+                Priority = (int)priority,
+                Status = (int)status,
+                UpdatedBy = updatedBy,
+                UpdatedRole = roles,
+                UpdatedAt_EnglishDate = nowDateTime,
+                UpdatedAt_PersianDate = nowPersianDate
             }
-        );*/
+        );
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
+    /// <param name="updatedBy"></param>
+    /// <param name="updatedRoles"></param>
+    public void Active(IDateTime dateTime, ISerializer serializer, string updatedBy, 
+        IReadOnlyCollection<string> updatedRoles
+    )
+    {
+        var roles = serializer.Serialize(updatedRoles);
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
+        
+        IsActive = IsActive.Active;
+        UpdatedBy = updatedBy;
+        UpdatedRole = roles;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
+
+        AddEvent(
+            new TicketActived {
+                Id = Id,
+                UpdatedBy = updatedBy,
+                UpdatedRole = roles,
+                UpdatedAt_EnglishDate = nowDateTime,
+                UpdatedAt_PersianDate = nowPersianDate
+            }
+        );
     }
     
     /// <summary>
     /// 
     /// </summary>
-    public void InActive()
+    /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
+    /// <param name="updatedBy"></param>
+    /// <param name="updatedRoles"></param>
+    public void InActive(IDateTime dateTime, ISerializer serializer, string updatedBy, 
+        IReadOnlyCollection<string> updatedRoles
+    )
     {
-        IsActive = IsActive.InActive;
+        var roles = serializer.Serialize(updatedRoles);
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
         
-        /*AddEvent(
-            new TemplateInActived {
-                Id       = Id ,
-                IsActive = IsActive == IsActive.Active
+        IsActive = IsActive.InActive;
+        UpdatedBy = updatedBy;
+        UpdatedRole = roles;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
+
+        AddEvent(
+            new TicketInActived {
+                Id = Id,
+                UpdatedBy = updatedBy,
+                UpdatedRole = roles,
+                UpdatedAt_EnglishDate = nowDateTime,
+                UpdatedAt_PersianDate = nowPersianDate
             }
-        );*/
+        );
     }
 }

@@ -1,14 +1,10 @@
 ﻿using Domic.Domain.Service.Contracts.Interfaces;
+using Domic.Domain.Service.Entities;
 using Domic.Persistence.Contexts.C;
 
 namespace Domic.Infrastructure.Implementations.Domain.Repositories.C;
 
-public class TicketCommandRepository : ITicketCommandRepository
+public class TicketCommandRepository(SQLContext context) : ITicketCommandRepository
 {
-    private readonly SQLContext _sqlContext;
-
-    public TicketCommandRepository(SQLContext sqlContext)
-    {
-        _sqlContext = sqlContext;
-    }
+    public void Add(Ticket entity) => context.Tickets.Add(entity);
 }

@@ -9,17 +9,14 @@ namespace Domic.Persistence.Contexts.C;
 /*Setting*/
 public partial class SQLContext : DbContext
 {
-    public SQLContext(DbContextOptions<SQLContext> options) : base(options)
-    {
-        
-    }
+    public SQLContext(DbContextOptions<SQLContext> options) : base(options){}
 }
 
 /*Entity*/
 public partial class SQLContext
 {
-    public DbSet<Event> Events       { get; set; }
-    public DbSet<Ticket> Templates { get; set; }
+    public DbSet<Event> Events { get; set; }
+    public DbSet<Ticket> Tickets { get; set; }
 }
 
 /*Config*/
@@ -30,6 +27,6 @@ public partial class SQLContext
         base.OnModelCreating(builder);
         
         builder.ApplyConfiguration(new EventConfig());
-        builder.ApplyConfiguration(new TemplateConfig());
+        builder.ApplyConfiguration(new TicketConfig());
     }
 }

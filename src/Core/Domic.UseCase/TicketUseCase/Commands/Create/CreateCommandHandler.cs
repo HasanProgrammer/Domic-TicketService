@@ -9,11 +9,10 @@ namespace Domic.UseCase.TicketUseCase.Commands.Create;
 public class CreateCommandHandler(
     ITicketCommandRepository ticketCommandRepository, IGlobalUniqueIdGenerator globalUniqueIdGenerator,
     IDateTime dateTime, ISerializer serializer
-)
-: ICommandHandler<CreateCommand, bool>
+) : ICommandHandler<CreateCommand, string>
 {
     [WithTransaction]
-    public Task<bool> HandleAsync(CreateCommand command, CancellationToken cancellationToken)
+    public Task<string> HandleAsync(CreateCommand command, CancellationToken cancellationToken)
     {
         var newTicket = new Ticket(
             globalUniqueIdGenerator, dateTime, serializer, command.Title, command.Description, command.Priority, 
@@ -22,6 +21,6 @@ public class CreateCommandHandler(
         
         ticketCommandRepository.Add(newTicket);
 
-        return Task.FromResult(true);
+        return Task.FromResult(newTicket.Id);
     }
 }
