@@ -1,10 +1,10 @@
 ﻿using Domic.Core.Domain.Contracts.Abstracts;
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Domain.ValueObjects;
-using Domic.Domain.Service.ValueObjects;
 using Domic.Domain.Ticket.Events;
+using Domic.Domain.Ticket.ValueObjects;
 
-namespace Domic.Domain.Service.Entities;
+namespace Domic.Domain.Ticket.Entities;
 
 public class TicketComment : Entity<string>
 {

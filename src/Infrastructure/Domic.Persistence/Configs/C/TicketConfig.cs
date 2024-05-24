@@ -1,5 +1,5 @@
 using Domic.Core.Persistence.Configs;
-using Domic.Domain.Service.Entities;
+using Domic.Domain.Ticket.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

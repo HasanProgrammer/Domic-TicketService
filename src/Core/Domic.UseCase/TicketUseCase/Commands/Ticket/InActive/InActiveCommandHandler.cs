@@ -3,7 +3,7 @@
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
-using Domic.Domain.Service.Entities;
+using Domic.Domain.Ticket.Entities;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.InActive;
 
@@ -15,7 +15,7 @@ public class InActiveCommandHandler(IDateTime dateTime, ISerializer serializer)
     [WithTransaction, WithValidation]
     public Task<string> HandleAsync(InActiveCommand command, CancellationToken cancellationToken)
     {
-        var ticket = _validationResult as Domain.Service.Entities.Ticket;
+        var ticket = _validationResult as Domain.Ticket.Entities.Ticket;
         
         ticket.InActive(dateTime, serializer, command.UserId, command.UserRoles);
 

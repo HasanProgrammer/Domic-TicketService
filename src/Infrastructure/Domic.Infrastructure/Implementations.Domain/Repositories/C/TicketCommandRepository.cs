@@ -1,5 +1,5 @@
-﻿using Domic.Domain.Service.Contracts.Interfaces;
-using Domic.Domain.Service.Entities;
+﻿using Domic.Domain.Ticket.Contracts.Interfaces;
+using Domic.Domain.Ticket.Entities;
 using Domic.Persistence.Contexts.C;
 
 namespace Domic.Infrastructure.Implementations.Domain.Repositories.C;

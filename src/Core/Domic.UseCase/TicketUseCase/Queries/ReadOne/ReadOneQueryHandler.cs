@@ -1,5 +1,5 @@
 ﻿using Domic.Core.UseCase.Contracts.Interfaces;
-using Domic.Domain.Service.Contracts.Interfaces;
+using Domic.Domain.Ticket.Contracts.Interfaces;
 using Domic.UseCase.TicketUseCase.DTOs;
 
 namespace Domic.UseCase.TicketUseCase.Queries.ReadOne;

@@ -3,8 +3,8 @@
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
-using Domic.Domain.Service.Contracts.Interfaces;
-using Domic.Domain.Service.Entities;
+using Domic.Domain.Ticket.Contracts.Interfaces;
+using Domic.Domain.Ticket.Entities;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Update;
 
@@ -17,7 +17,7 @@ public class UpdateCommandHandler(ITicketCommandRepository ticketCommandReposito
     [WithTransaction, WithValidation]
     public Task<string> HandleAsync(UpdateCommand command, CancellationToken cancellationToken)
     {
-        var ticket = _validationResult as Domain.Service.Entities.Ticket;
+        var ticket = _validationResult as Domain.Ticket.Entities.Ticket;
         
         ticket.Change(dateTime, serializer, command.Title, command.Description, command.Priority, command.Status,
             command.UserId, command.UserRoles
