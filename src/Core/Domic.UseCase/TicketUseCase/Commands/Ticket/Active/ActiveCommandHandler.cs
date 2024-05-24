@@ -5,7 +5,7 @@ using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Service.Entities;
 
-namespace Domic.UseCase.TicketUseCase.Commands.Active;
+namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
 
 public class ActiveCommandHandler(IDateTime dateTime, ISerializer serializer) : ICommandHandler<ActiveCommand, string>
 {
@@ -14,7 +14,7 @@ public class ActiveCommandHandler(IDateTime dateTime, ISerializer serializer) : 
     [WithTransaction, WithValidation]
     public Task<string> HandleAsync(ActiveCommand command, CancellationToken cancellationToken)
     {
-        var ticket = _validationResult as Ticket;
+        var ticket = _validationResult as Domain.Service.Entities.Ticket;
         
         ticket.Active(dateTime, serializer, command.UserId, command.UserRoles);
 

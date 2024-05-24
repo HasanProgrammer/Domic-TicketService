@@ -2,7 +2,7 @@
 using Domic.Core.UseCase.Exceptions;
 using Domic.Domain.Service.Contracts.Interfaces;
 
-namespace Domic.UseCase.TicketUseCase.Commands.Active;
+namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
 
 public class ActiveCommandValidator(ITicketCommandRepository ticketCommandRepository) : IValidator<ActiveCommand>
 {

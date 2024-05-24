@@ -1,9 +1,9 @@
 ﻿using Domic.Core.UseCase.Contracts.Abstracts;
 using Domic.Core.UseCase.Contracts.Interfaces;
 
-namespace Domic.UseCase.TicketUseCase.Commands.InActive;
+namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
 
-public class InActiveCommand : Auditable, ICommand<string>
+public class ActiveCommand : Auditable, ICommand<string>
 {
     public required string Id { get; set; }
 }

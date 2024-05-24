@@ -68,7 +68,7 @@ public partial class RpcResponseExtension
                 Body = new CreateResponseBody { TicketId = result }
             };
         else if(typeof(TResponse) == typeof(UpdateResponse))
-            response = new UpdateResponse() {
+            response = new UpdateResponse {
                 Code = configuration.GetValue<int>("StatusCode:Success"),
                 Message = configuration.GetValue<string>("Message:FA:SuccessUpdate"),
                 Body = new UpdateResponseBody { TicketId = result }
@@ -84,6 +84,12 @@ public partial class RpcResponseExtension
                 Code = configuration.GetValue<int>("StatusCode:Success"),
                 Message = configuration.GetValue<string>("Message:FA:SuccessUpdate"),
                 Body = new InActiveResponseBody { TicketId = result }
+            };
+        if(typeof(TResponse) == typeof(DeleteResponse))
+            response = new DeleteResponse {
+                Code = configuration.GetValue<int>("StatusCode:Success"),
+                Message = configuration.GetValue<string>("Message:FA:SuccessDelete"),
+                Body = new DeleteResponseBody { TicketId = result }
             };
 
         return (TResponse)response;

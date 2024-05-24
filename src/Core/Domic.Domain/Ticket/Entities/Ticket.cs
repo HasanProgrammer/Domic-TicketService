@@ -4,9 +4,9 @@ using Domic.Core.Domain.Contracts.Abstracts;
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Domain.Enumerations;
 using Domic.Core.Domain.ValueObjects;
-using Domic.Domain.Service.Events;
 using Domic.Domain.Service.ValueObjects;
 using Domic.Domain.Ticket.Enumerations;
+using Domic.Domain.Ticket.Events;
 
 namespace Domic.Domain.Service.Entities;
 
@@ -168,6 +168,37 @@ public class Ticket : Entity<string>
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
         
         IsActive = IsActive.InActive;
+        UpdatedBy = updatedBy;
+        UpdatedRole = roles;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
+
+        AddEvent(
+            new TicketInActived {
+                Id = Id,
+                UpdatedBy = updatedBy,
+                UpdatedRole = roles,
+                UpdatedAt_EnglishDate = nowDateTime,
+                UpdatedAt_PersianDate = nowPersianDate
+            }
+        );
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
+    /// <param name="updatedBy"></param>
+    /// <param name="updatedRoles"></param>
+    public void Delete(IDateTime dateTime, ISerializer serializer, string updatedBy, 
+        IReadOnlyCollection<string> updatedRoles
+    )
+    {
+        var roles = serializer.Serialize(updatedRoles);
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
+        
+        IsDeleted = IsDeleted.Delete;
         UpdatedBy = updatedBy;
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);

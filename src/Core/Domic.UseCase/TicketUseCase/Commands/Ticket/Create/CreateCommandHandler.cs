@@ -4,7 +4,7 @@ using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Service.Contracts.Interfaces;
 using Domic.Domain.Service.Entities;
 
-namespace Domic.UseCase.TicketUseCase.Commands.Create;
+namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Create;
 
 public class CreateCommandHandler(
     ITicketCommandRepository ticketCommandRepository, IGlobalUniqueIdGenerator globalUniqueIdGenerator,
@@ -14,7 +14,7 @@ public class CreateCommandHandler(
     [WithTransaction]
     public Task<string> HandleAsync(CreateCommand command, CancellationToken cancellationToken)
     {
-        var newTicket = new Ticket(
+        var newTicket = new Domain.Service.Entities.Ticket(
             globalUniqueIdGenerator, dateTime, serializer, command.Title, command.Description, command.Priority, 
             command.UserId, command.UserRoles
         );

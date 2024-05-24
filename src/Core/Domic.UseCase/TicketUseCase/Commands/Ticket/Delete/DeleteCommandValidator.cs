@@ -2,11 +2,11 @@
 using Domic.Core.UseCase.Exceptions;
 using Domic.Domain.Service.Contracts.Interfaces;
 
-namespace Domic.UseCase.TicketUseCase.Commands.Update;
+namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Delete;
 
-public class UpdateCommandValidator(ITicketCommandRepository ticketCommandRepository) : IValidator<UpdateCommand>
+public class DeleteCommandValidator(ITicketCommandRepository ticketCommandRepository) : IValidator<DeleteCommand>
 {
-    public async Task<object> ValidateAsync(UpdateCommand input, CancellationToken cancellationToken)
+    public async Task<object> ValidateAsync(DeleteCommand input, CancellationToken cancellationToken)
     {
         var ticket = await ticketCommandRepository.FindByIdAsync(input.Id, cancellationToken);
 

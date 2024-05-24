@@ -2,7 +2,7 @@ using Domic.Core.Domain.Attributes;
 using Domic.Core.Domain.Contracts.Abstracts;
 using Domic.Core.Domain.Enumerations;
 
-namespace Domic.Domain.Service.Events;
+namespace Domic.Domain.Ticket.Events;
 
 [MessageBroker(ExchangeType = Exchange.FanOut, Exchange = "")]
 public class TicketUpdated : UpdateDomainEvent<string>

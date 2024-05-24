@@ -2,10 +2,11 @@ using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Ticket.Grpc;
 using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Enumerations;
-using Domic.UseCase.TicketUseCase.Commands.Active;
-using Domic.UseCase.TicketUseCase.Commands.Create;
-using Domic.UseCase.TicketUseCase.Commands.InActive;
-using Domic.UseCase.TicketUseCase.Commands.Update;
+using Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
+using Domic.UseCase.TicketUseCase.Commands.Ticket.Create;
+using Domic.UseCase.TicketUseCase.Commands.Ticket.Delete;
+using Domic.UseCase.TicketUseCase.Commands.Ticket.InActive;
+using Domic.UseCase.TicketUseCase.Commands.Ticket.Update;
 using Domic.UseCase.TicketUseCase.Queries.CheckExist;
 using Domic.UseCase.TicketUseCase.Queries.ReadAllPaginate;
 using Domic.UseCase.TicketUseCase.Queries.ReadOne;
@@ -104,6 +105,22 @@ public partial class RpcRequestExtension
     /// <param name="jsonWebToken"></param>
     /// <returns></returns>
     public static InActiveCommand ToCommand(this InActiveRequest request, string token, IJsonWebToken jsonWebToken) 
+        => new() {
+            Id = request.TicketId.Value,
+            UserId = jsonWebToken.GetIdentityUserId(token),
+            Username = jsonWebToken.GetUsername(token),
+            UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
+            UserPermissions = default
+        };
+    
+    /// <summary>
+    /// Map DeleteRequest -> DeleteCommand
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="token"></param>
+    /// <param name="jsonWebToken"></param>
+    /// <returns></returns>
+    public static DeleteCommand ToCommand(this DeleteRequest request, string token, IJsonWebToken jsonWebToken) 
         => new() {
             Id = request.TicketId.Value,
             UserId = jsonWebToken.GetIdentityUserId(token),

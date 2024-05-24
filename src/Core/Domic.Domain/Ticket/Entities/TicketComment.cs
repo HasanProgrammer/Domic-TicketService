@@ -2,6 +2,7 @@
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Domain.ValueObjects;
 using Domic.Domain.Service.ValueObjects;
+using Domic.Domain.Ticket.Events;
 
 namespace Domic.Domain.Service.Entities;
 
@@ -31,10 +32,11 @@ public class TicketComment : Entity<string>
     /// <param name="dateTime"></param>
     /// <param name="ticketId"></param>
     /// <param name="comment"></param>
-    public TicketComment(IGlobalUniqueIdGenerator globalUniqueIdGenerator, IDateTime dateTime, string ticketId, 
-        string comment, string createdBy, string createdRole
+    public TicketComment(IGlobalUniqueIdGenerator globalUniqueIdGenerator, IDateTime dateTime, ISerializer serializer,
+        string ticketId, string comment, string createdBy, IReadOnlyCollection<string> createdRoles
     )
     {
+        var roles = serializer.Serialize(createdRoles);
         var nowDateTime = DateTime.Now;
         var nowPersianDateTime = dateTime.ToPersianShortDate(nowDateTime);
 
@@ -43,10 +45,18 @@ public class TicketComment : Entity<string>
         Comment = new Comment(comment);
         CreatedAt = new CreatedAt(nowDateTime, nowPersianDateTime);
         CreatedBy = createdBy;
-        CreatedRole = createdRole;
+        CreatedRole = roles;
         
-        /*AddEvent(
-        );*/
+        AddEvent(
+            new TicketCommentCreated {
+                Id = Id,
+                Comment = comment,
+                CreatedBy = createdBy,
+                CreatedRole = roles,
+                CreatedAt_EnglishDate = nowDateTime,
+                CreatedAt_PersianDate = nowPersianDateTime
+            }
+        );
     }
     
     /*---------------------------------------------------------------*/

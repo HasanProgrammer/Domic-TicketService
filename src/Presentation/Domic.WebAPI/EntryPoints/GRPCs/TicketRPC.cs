@@ -119,8 +119,12 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
         return result.ToResponse<InActiveResponse>(configuration);
     }
 
-    public override Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
+    public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
     {
-        return base.Delete(request, context);
+        var command = request.ToCommand(context.GetHttpContext().GetTokenOfGrpcHeader(), jsonWebToken);
+
+        var result = await mediator.DispatchAsync(command, context.CancellationToken);
+
+        return result.ToResponse<DeleteResponse>(configuration);
     }
 }

@@ -5,4 +5,4 @@ using Domic.Core.Domain.Enumerations;
 namespace Domic.Domain.Ticket.Events;
 
 [MessageBroker(ExchangeType = Exchange.FanOut, Exchange = "")]
-public class TicketActived : UpdateDomainEvent<string>;
+public class TicketDeleted : UpdateDomainEvent<string>;
