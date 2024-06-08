@@ -14,7 +14,5 @@ public class TicketConfig : BaseEntityConfig<Ticket, string>
         //configs
         
         builder.ToTable("Tickets");
-        
-        
     }
 }
