@@ -31,5 +31,6 @@ public partial class SQLContext
         builder.ApplyConfiguration(new EventConfig());
         builder.ApplyConfiguration(new ConsumerEventConfig());
         builder.ApplyConfiguration(new TicketConfig());
+        builder.ApplyConfiguration(new TicketCommentConfig());
     }
 }

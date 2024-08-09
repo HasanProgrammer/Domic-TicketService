@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domic.Persistence.Configs.C;
 
-public class TicketCommentCommentConfig : BaseEntityConfig<TicketComment, string>
+public class TicketCommentConfig : BaseEntityConfig<TicketComment, string>
 {
     public override void Configure(EntityTypeBuilder<TicketComment> builder)
     {
@@ -16,7 +16,7 @@ public class TicketCommentCommentConfig : BaseEntityConfig<TicketComment, string
         //configs
         
      
-        builder.OwnsOne(ticket => ticket.Comment)
+        builder.OwnsOne(comment => comment.Comment)
                .Property(title => title.Value)
                .IsRequired()
                .HasMaxLength(2000)
