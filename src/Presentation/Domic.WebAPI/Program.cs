@@ -24,7 +24,6 @@ builder.RegisterGrpcServer();
 builder.RegisterEntityFrameworkCoreCommand<SQLContext, string>();
 builder.RegisterCommandQueryUseCases();
 builder.RegisterCommandRepositories();
-builder.RegisterQueryRepositories();
 builder.RegisterMessageBroker();
 builder.RegisterDistributedCaching();
 builder.RegisterEventsPublisher();

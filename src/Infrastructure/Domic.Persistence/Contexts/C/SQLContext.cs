@@ -18,6 +18,7 @@ public partial class SQLContext
     public DbSet<Event> Events { get; set; }
     public DbSet<ConsumerEvent> ConsumerEvents { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
+    public DbSet<TicketComment> TicketComments { get; set; }
 }
 
 /*Config*/
