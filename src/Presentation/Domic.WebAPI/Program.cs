@@ -26,6 +26,7 @@ builder.RegisterEntityFrameworkCoreCommand<SQLContext, string>();
 builder.RegisterCommandQueryUseCases();
 builder.RegisterCommandRepositories();
 builder.RegisterMessageBroker();
+builder.RegisterEventStreamBroker();
 builder.RegisterDistributedCaching();
 builder.RegisterEventsPublisher();
 builder.RegisterEventsSubscriber();
@@ -41,7 +42,7 @@ WebApplication application = builder.Build();
 
 /*-------------------------------------------------------------------*/
 
-//Primary processing
+//primary processing
 
 application.Services.AutoMigration<SQLContext>(context => context.Seed());
 
