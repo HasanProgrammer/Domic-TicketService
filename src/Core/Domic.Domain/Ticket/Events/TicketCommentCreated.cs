@@ -4,7 +4,7 @@ using Domic.Core.Domain.Enumerations;
 
 namespace Domic.Domain.Ticket.Events;
 
-[MessageBroker(ExchangeType = Exchange.FanOut, Exchange = "")]
+[EventConfig(ExchangeType = Exchange.FanOut, Exchange = "")]
 public class TicketCommentCreated : CreateDomainEvent<string>
 {
     public required string Comment { get; init; }
