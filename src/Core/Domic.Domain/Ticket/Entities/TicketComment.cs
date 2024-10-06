@@ -30,8 +30,11 @@ public class TicketComment : Entity<string>
     /// </summary>
     /// <param name="globalUniqueIdGenerator"></param>
     /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
     /// <param name="ticketId"></param>
     /// <param name="comment"></param>
+    /// <param name="createdBy"></param>
+    /// <param name="createdRoles"></param>
     public TicketComment(IGlobalUniqueIdGenerator globalUniqueIdGenerator, IDateTime dateTime, ISerializer serializer,
         string ticketId, string comment, string createdBy, IReadOnlyCollection<string> createdRoles
     )

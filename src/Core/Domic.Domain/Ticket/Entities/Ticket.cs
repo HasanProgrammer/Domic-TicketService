@@ -204,7 +204,7 @@ public class Ticket : Entity<string>
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
 
         AddEvent(
-            new TicketInActived {
+            new TicketDeleted {
                 Id = Id,
                 UpdatedBy = updatedBy,
                 UpdatedRole = roles,
