@@ -4,9 +4,10 @@ using Domic.Core.Domain.Enumerations;
 
 namespace Domic.Domain.Ticket.Events;
 
-[EventConfig(ExchangeType = Exchange.FanOut, Exchange = "")]
+[EventConfig(ExchangeType = Exchange.FanOut, Exchange = "Ticket_Ticket_Exchange")]
 public class TicketCreated : CreateDomainEvent<string>
 {
+    public required string UserId { get; init; }
     public required string Title { get; init; }
     public required string Description { get; init; }
     public required int Status { get; init; }
