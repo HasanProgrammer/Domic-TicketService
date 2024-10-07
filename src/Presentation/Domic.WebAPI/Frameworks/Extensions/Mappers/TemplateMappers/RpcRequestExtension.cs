@@ -52,6 +52,7 @@ public partial class RpcRequestExtension
     public static CreateCommand ToCommand(this CreateRequest request, string token, IJsonWebToken jsonWebToken) 
         => new() {
             UserId = jsonWebToken.GetIdentityUserId(token),
+            CategoryId = request.CategoryId.Value,
             Username = jsonWebToken.GetUsername(token),
             UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
             Title = request.Title.Value,
@@ -72,6 +73,7 @@ public partial class RpcRequestExtension
         => new() {
             Id = request.TicketId.Value,
             UserId = jsonWebToken.GetIdentityUserId(token),
+            CategoryId = request.CategoryId.Value,
             Username = jsonWebToken.GetUsername(token),
             UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
             Title = request.Title.Value,

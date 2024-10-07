@@ -6,6 +6,7 @@ namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Create;
 
 public class CreateCommand : Auditable, ICommand<string>
 {
+    public required string CategoryId { get; init; }
     public required string Title { get; init; }
     public required string Description { get; init; }
     public required Status Status { get; init; }

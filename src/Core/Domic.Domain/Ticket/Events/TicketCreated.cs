@@ -8,6 +8,7 @@ namespace Domic.Domain.Ticket.Events;
 public class TicketCreated : CreateDomainEvent<string>
 {
     public required string UserId { get; init; }
+    public required string CategoryId { get; init; }
     public required string Title { get; init; }
     public required string Description { get; init; }
     public required int Status { get; init; }

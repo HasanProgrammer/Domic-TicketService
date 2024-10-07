@@ -19,7 +19,7 @@
 
   <!--CoreService | RPC-->
   <ItemGroup>
-    <PackageReference Include="Domic.Grpc.Ticket" Version="4.0.1"/>
+    <PackageReference Include="Domic.Grpc.Ticket" Version="4.0.3"/>
   </ItemGroup>
   <!--CoreService | RPC-->
 

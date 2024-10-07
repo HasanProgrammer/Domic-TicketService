@@ -13,6 +13,7 @@ namespace Domic.Domain.Ticket.Entities;
 public class Ticket : Entity<string>
 {
     public string UserId { get; private set; }
+    public string CategoryId { get; private set; }
     public Status Status { get; private set; }
     public Priority Priority { get; private set; }
     
@@ -39,13 +40,14 @@ public class Ticket : Entity<string>
     /// <param name="dateTime"></param>
     /// <param name="serializer"></param>
     /// <param name="userId"></param>
+    /// <param name="categoryId"></param>
     /// <param name="title"></param>
     /// <param name="description"></param>
     /// <param name="priority"></param>
     /// <param name="createdBy"></param>
     /// <param name="createdRoles"></param>
     public Ticket(IGlobalUniqueIdGenerator globalUniqueIdGeneratorstring, IDateTime dateTime, 
-        ISerializer serializer, string userId, string title, string description, Priority priority, string createdBy, 
+        ISerializer serializer, string userId, string categoryId, string title, string description, Priority priority, string createdBy, 
         IReadOnlyCollection<string> createdRoles
     )
     {
@@ -55,6 +57,7 @@ public class Ticket : Entity<string>
 
         Id = globalUniqueIdGeneratorstring.GetRandom(6);
         UserId = userId;
+        CategoryId = categoryId;
         Title = new Title(title);
         Description = new Description(description);
         Status = Status.Open;
@@ -68,6 +71,7 @@ public class Ticket : Entity<string>
                 Id = Id,
                 Title = title,
                 UserId = userId,
+                CategoryId = categoryId,
                 Description = description,
                 Status = (int)Status,
                 Priority = (int)Priority,
@@ -88,20 +92,22 @@ public class Ticket : Entity<string>
     /// </summary>
     /// <param name="dateTime"></param>
     /// <param name="serializer"></param>
+    /// <param name="categoryId"></param>
     /// <param name="title"></param>
     /// <param name="description"></param>
     /// <param name="priority"></param>
     /// <param name="status"></param>
     /// <param name="updatedBy"></param>
     /// <param name="updatedRoles"></param>
-    public void Change(IDateTime dateTime, ISerializer serializer, string title, string description, Priority priority,
-        Status status, string updatedBy, IReadOnlyCollection<string> updatedRoles
+    public void Change(IDateTime dateTime, ISerializer serializer, string categoryId, string title, string description,
+        Priority priority, Status status, string updatedBy, IReadOnlyCollection<string> updatedRoles
     )
     {
         var roles = serializer.Serialize(updatedRoles);
         var nowDateTime = DateTime.Now;
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
 
+        CategoryId = categoryId;
         Title = new Title(title);
         Description = new Description(description);
         Priority = priority;
@@ -113,6 +119,7 @@ public class Ticket : Entity<string>
         AddEvent(
             new TicketUpdated {
                 Id = Id,
+                CategoryId = categoryId,
                 Title = title,
                 Description = description,
                 Priority = (int)priority,
