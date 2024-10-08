@@ -139,8 +139,9 @@ public class Ticket : Entity<string>
     /// <param name="serializer"></param>
     /// <param name="updatedBy"></param>
     /// <param name="updatedRoles"></param>
+    /// <param name="withEventRaising"></param>
     public void Active(IDateTime dateTime, ISerializer serializer, string updatedBy, 
-        IReadOnlyCollection<string> updatedRoles
+        IReadOnlyCollection<string> updatedRoles, bool withEventRaising = true
     )
     {
         var roles = serializer.Serialize(updatedRoles);
@@ -152,15 +153,16 @@ public class Ticket : Entity<string>
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
 
-        AddEvent(
-            new TicketActived {
-                Id = Id,
-                UpdatedBy = updatedBy,
-                UpdatedRole = roles,
-                UpdatedAt_EnglishDate = nowDateTime,
-                UpdatedAt_PersianDate = nowPersianDate
-            }
-        );
+        if(withEventRaising)
+            AddEvent(
+                new TicketActived {
+                    Id = Id,
+                    UpdatedBy = updatedBy,
+                    UpdatedRole = roles,
+                    UpdatedAt_EnglishDate = nowDateTime,
+                    UpdatedAt_PersianDate = nowPersianDate
+                }
+            );
     }
     
     /// <summary>
@@ -170,8 +172,9 @@ public class Ticket : Entity<string>
     /// <param name="serializer"></param>
     /// <param name="updatedBy"></param>
     /// <param name="updatedRoles"></param>
+    /// <param name="withEventRaising"></param>
     public void InActive(IDateTime dateTime, ISerializer serializer, string updatedBy, 
-        IReadOnlyCollection<string> updatedRoles
+        IReadOnlyCollection<string> updatedRoles, bool withEventRaising = true
     )
     {
         var roles = serializer.Serialize(updatedRoles);
@@ -183,15 +186,16 @@ public class Ticket : Entity<string>
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
 
-        AddEvent(
-            new TicketInActived {
-                Id = Id,
-                UpdatedBy = updatedBy,
-                UpdatedRole = roles,
-                UpdatedAt_EnglishDate = nowDateTime,
-                UpdatedAt_PersianDate = nowPersianDate
-            }
-        );
+        if(withEventRaising)
+            AddEvent(
+                new TicketInActived {
+                    Id = Id,
+                    UpdatedBy = updatedBy,
+                    UpdatedRole = roles,
+                    UpdatedAt_EnglishDate = nowDateTime,
+                    UpdatedAt_PersianDate = nowPersianDate
+                }
+            );
     }
     
     /// <summary>
