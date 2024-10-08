@@ -14,6 +14,21 @@ public interface ITicketCommandRepository : ICommandRepository<Entities.Ticket, 
     public Task<List<Entities.Ticket>> FindByUserIdConditionallyAsync(string userId, 
         Expression<Func<Entities.Ticket, bool>> condition, CancellationToken cancellationToken
     );
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="categoryId"></param>
+    /// <param name="condition"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task<List<Entities.Ticket>> FindByCategoryIdConditionallyAsync(string categoryId, 
+        Expression<Func<Entities.Ticket, bool>> condition, CancellationToken cancellationToken
+    );
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="entities"></param>
     public void ChangeRange(List<Entities.Ticket> entities);
 }
