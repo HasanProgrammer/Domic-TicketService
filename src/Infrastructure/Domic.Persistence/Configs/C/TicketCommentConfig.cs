@@ -14,7 +14,6 @@ public class TicketCommentConfig : BaseEntityConfig<TicketComment, string>
         builder.ToTable("TicketComments");
         
         //configs
-        
      
         builder.OwnsOne(comment => comment.Comment)
                .Property(title => title.Value)
