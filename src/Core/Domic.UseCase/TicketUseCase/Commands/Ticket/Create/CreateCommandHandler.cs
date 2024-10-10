@@ -14,7 +14,7 @@ public class CreateCommandHandler(
     public Task<string> HandleAsync(CreateCommand command, CancellationToken cancellationToken)
     {
         var newTicket = new Domain.Ticket.Entities.Ticket(
-            globalUniqueIdGenerator, dateTime, serializer, command.UserId, command.CategoryId, command.Title, 
+            globalUniqueIdGenerator, dateTime, serializer, command.CategoryId, command.Title, 
             command.Description, command.Priority, command.UserId, command.UserRoles
         );
         

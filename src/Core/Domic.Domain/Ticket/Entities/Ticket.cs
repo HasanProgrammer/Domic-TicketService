@@ -12,7 +12,6 @@ namespace Domic.Domain.Ticket.Entities;
 
 public class Ticket : Entity<string>
 {
-    public string UserId { get; private set; }
     public string CategoryId { get; private set; }
     public Status Status { get; private set; }
     public Priority Priority { get; private set; }
@@ -39,7 +38,6 @@ public class Ticket : Entity<string>
     /// <param name="globalUniqueIdGeneratorstring"></param>
     /// <param name="dateTime"></param>
     /// <param name="serializer"></param>
-    /// <param name="userId"></param>
     /// <param name="categoryId"></param>
     /// <param name="title"></param>
     /// <param name="description"></param>
@@ -47,7 +45,7 @@ public class Ticket : Entity<string>
     /// <param name="createdBy"></param>
     /// <param name="createdRoles"></param>
     public Ticket(IGlobalUniqueIdGenerator globalUniqueIdGeneratorstring, IDateTime dateTime, 
-        ISerializer serializer, string userId, string categoryId, string title, string description, Priority priority, string createdBy, 
+        ISerializer serializer, string categoryId, string title, string description, Priority priority, string createdBy, 
         IReadOnlyCollection<string> createdRoles
     )
     {
@@ -56,7 +54,6 @@ public class Ticket : Entity<string>
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
 
         Id = globalUniqueIdGeneratorstring.GetRandom(6);
-        UserId = userId;
         CategoryId = categoryId;
         Title = new Title(title);
         Description = new Description(description);
@@ -70,7 +67,6 @@ public class Ticket : Entity<string>
             new TicketCreated {
                 Id = Id,
                 Title = title,
-                UserId = userId,
                 CategoryId = categoryId,
                 Description = description,
                 Status = (int)Status,

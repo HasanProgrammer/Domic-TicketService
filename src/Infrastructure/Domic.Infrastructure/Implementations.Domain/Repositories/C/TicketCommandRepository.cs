@@ -11,7 +11,7 @@ public class TicketCommandRepository(SQLContext context) : ITicketCommandReposit
     public Task<List<Ticket>> FindByUserIdConditionallyAsync(string userId, Expression<Func<Ticket, bool>> condition, 
         CancellationToken cancellationToken
     ) => context.Tickets.AsNoTracking()
-                        .Where(ticket => ticket.UserId == userId)
+                        .Where(ticket => ticket.CreatedBy == userId)
                         .Where(condition)
                         .ToListAsync(cancellationToken);
 

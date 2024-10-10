@@ -7,7 +7,6 @@ namespace Domic.Domain.Ticket.Events;
 [EventConfig(ExchangeType = Exchange.FanOut, Exchange = "Ticket_Ticket_Exchange")]
 public class TicketCreated : CreateDomainEvent<string>
 {
-    public required string UserId { get; init; }
     public required string CategoryId { get; init; }
     public required string Title { get; init; }
     public required string Description { get; init; }
