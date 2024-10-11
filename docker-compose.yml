@@ -5,7 +5,8 @@ services:
   domic.ticket.api:
     networks:
       - domic
-    image: ticket_api:1.0.0
+    image: ticket_service_api_image:1.0.0
+    container_name: "ticket_service_api"
     build:
       context: .
       dockerfile: Dockerfile
