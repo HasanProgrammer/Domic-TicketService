@@ -35,6 +35,7 @@ services:
       - Q-SqlServerConnectionString=
       - Host=domic.ticket.api
       - Port=80
+      - ServiceDiscoveryAddress=https://domic.discovery.api:443
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Domic123!@#

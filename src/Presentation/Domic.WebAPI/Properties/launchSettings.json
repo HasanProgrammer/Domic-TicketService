@@ -35,6 +35,7 @@
         "Q-SqlServerConnectionString": "",
         "Host": "localhost",
         "Port": "4501",
+        "ServiceDiscoveryAddress": "https://localhost:9009",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
