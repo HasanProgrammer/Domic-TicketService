@@ -22,4 +22,7 @@ public class CreateCommandHandler(
 
         return Task.FromResult(newTicket.Id);
     }
+
+    public Task AfterTransactionHandleAsync(CreateCommand message, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }

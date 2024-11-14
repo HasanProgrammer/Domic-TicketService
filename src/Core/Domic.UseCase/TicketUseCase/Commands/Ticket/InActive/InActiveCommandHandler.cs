@@ -3,7 +3,6 @@
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
-using Domic.Domain.Ticket.Entities;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.InActive;
 
@@ -21,4 +20,7 @@ public class InActiveCommandHandler(IDateTime dateTime, ISerializer serializer)
 
         return Task.FromResult(ticket.Id);
     }
+
+    public Task AfterTransactionHandleAsync(InActiveCommand message, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }

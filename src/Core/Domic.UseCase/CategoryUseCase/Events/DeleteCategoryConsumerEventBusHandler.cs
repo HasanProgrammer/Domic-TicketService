@@ -30,4 +30,9 @@ public class DeleteCategoryConsumerEventBusHandler(ITicketCommandRepository tick
             ticketCommandRepository.ChangeRange(tickets);
         }
     }
+
+    public void AfterTransactionHandle(CategoryDeleted @event){}
+
+    public Task AfterTransactionHandleAsync(CategoryDeleted @event, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }

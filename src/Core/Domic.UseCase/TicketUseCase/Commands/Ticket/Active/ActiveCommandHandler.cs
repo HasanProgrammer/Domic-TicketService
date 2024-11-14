@@ -19,4 +19,7 @@ public class ActiveCommandHandler(IDateTime dateTime, ISerializer serializer) : 
 
         return Task.FromResult(ticket.Id);
     }
+
+    public Task AfterTransactionHandleAsync(ActiveCommand message, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }

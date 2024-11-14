@@ -26,4 +26,7 @@ public class UpdateCommandHandler(ITicketCommandRepository ticketCommandReposito
 
         return Task.FromResult(ticket.Id);
     }
+
+    public Task AfterTransactionHandleAsync(UpdateCommand message, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }

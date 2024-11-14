@@ -4,7 +4,6 @@ using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Contracts.Interfaces;
-using Domic.Domain.Ticket.Entities;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Delete;
 
@@ -25,4 +24,7 @@ public class DeleteCommandHandler(ITicketCommandRepository ticketCommandReposito
 
         return Task.FromResult(ticket.Id);
     }
+
+    public Task AfterTransactionHandleAsync(DeleteCommand message, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }

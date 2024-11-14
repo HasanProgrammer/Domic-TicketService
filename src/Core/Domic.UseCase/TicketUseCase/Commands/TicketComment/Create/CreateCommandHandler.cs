@@ -21,4 +21,7 @@ public class CreateCommandHandler(ITicketCommentCommandRepository ticketCommentC
         
         return Task.FromResult(newTicketComment.Id);
     }
+
+    public Task AfterTransactionHandleAsync(CreateCommand message, CancellationToken cancellationToken)
+        => Task.CompletedTask;
 }
