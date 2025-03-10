@@ -13,7 +13,10 @@ public class UpdateCommandHandler(ITicketCommandRepository ticketCommandReposito
 ) : ICommandHandler<UpdateCommand, string>
 {
     private readonly object _validationResult;
-    
+
+    public Task BeforeHandleAsync(UpdateCommand command, CancellationToken cancellationToken)
+        => Task.CompletedTask;
+
     [WithTransaction, WithValidation]
     public Task<string> HandleAsync(UpdateCommand command, CancellationToken cancellationToken)
     {
@@ -28,6 +31,6 @@ public class UpdateCommandHandler(ITicketCommandRepository ticketCommandReposito
         return Task.FromResult(ticket.Id);
     }
 
-    public Task AfterTransactionHandleAsync(UpdateCommand message, CancellationToken cancellationToken)
+    public Task AfterHandleAsync(UpdateCommand command, CancellationToken cancellationToken)
         => Task.CompletedTask;
 }

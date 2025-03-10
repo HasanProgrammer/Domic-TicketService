@@ -12,7 +12,10 @@ public class InActiveCommandHandler(IDateTime dateTime, ISerializer serializer,
 ) : ICommandHandler<InActiveCommand, string>
 {
     private readonly object _validationResult;
-    
+
+    public Task BeforeHandleAsync(InActiveCommand command, CancellationToken cancellationToken)
+        => Task.CompletedTask;
+
     [WithTransaction, WithValidation]
     public Task<string> HandleAsync(InActiveCommand command, CancellationToken cancellationToken)
     {
@@ -23,6 +26,6 @@ public class InActiveCommandHandler(IDateTime dateTime, ISerializer serializer,
         return Task.FromResult(ticket.Id);
     }
 
-    public Task AfterTransactionHandleAsync(InActiveCommand message, CancellationToken cancellationToken)
+    public Task AfterHandleAsync(InActiveCommand command, CancellationToken cancellationToken)
         => Task.CompletedTask;
 }

@@ -13,7 +13,10 @@ public class DeleteCommandHandler(ITicketCommandRepository ticketCommandReposito
 ) : ICommandHandler<DeleteCommand, string>
 {
     private readonly object _validationResult;
-    
+
+    public Task BeforeHandleAsync(DeleteCommand command, CancellationToken cancellationToken)
+        => Task.CompletedTask;
+
     [WithTransaction, WithValidation]
     public Task<string> HandleAsync(DeleteCommand command, CancellationToken cancellationToken)
     {
@@ -26,6 +29,6 @@ public class DeleteCommandHandler(ITicketCommandRepository ticketCommandReposito
         return Task.FromResult(ticket.Id);
     }
 
-    public Task AfterTransactionHandleAsync(DeleteCommand message, CancellationToken cancellationToken)
+    public Task AfterHandleAsync(DeleteCommand command, CancellationToken cancellationToken)
         => Task.CompletedTask;
 }

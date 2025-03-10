@@ -11,6 +11,9 @@ public class CreateCommandHandler(ITicketCommentCommandRepository ticketCommentC
     [FromKeyedServices("Http2")] IIdentityUser identityUser
 ) : ICommandHandler<CreateCommand, string>
 {
+    public Task BeforeHandleAsync(CreateCommand command, CancellationToken cancellationToken)
+        => Task.CompletedTask;
+
     [WithTransaction, WithValidation]
     public async Task<string> HandleAsync(CreateCommand command, CancellationToken cancellationToken)
     {
@@ -24,6 +27,6 @@ public class CreateCommandHandler(ITicketCommentCommandRepository ticketCommentC
         return newTicketComment.Id;
     }
 
-    public Task AfterTransactionHandleAsync(CreateCommand message, CancellationToken cancellationToken)
+    public Task AfterHandleAsync(CreateCommand command, CancellationToken cancellationToken)
         => Task.CompletedTask;
 }
