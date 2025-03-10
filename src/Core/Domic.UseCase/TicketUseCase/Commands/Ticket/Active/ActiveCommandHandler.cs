@@ -3,10 +3,13 @@
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
 
-public class ActiveCommandHandler(IDateTime dateTime, ISerializer serializer) : ICommandHandler<ActiveCommand, string>
+public class ActiveCommandHandler(IDateTime dateTime, ISerializer serializer,
+    [FromKeyedServices("Http2")] IIdentityUser identityUser
+) : ICommandHandler<ActiveCommand, string>
 {
     private readonly object _validationResult;
     
@@ -15,7 +18,7 @@ public class ActiveCommandHandler(IDateTime dateTime, ISerializer serializer) : 
     {
         var ticket = _validationResult as Domain.Ticket.Entities.Ticket;
         
-        ticket.Active(dateTime, serializer, command.UserId, command.UserRoles);
+        ticket.Active(dateTime, serializer, identityUser);
 
         return Task.FromResult(ticket.Id);
     }

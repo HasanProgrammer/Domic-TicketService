@@ -6,5 +6,10 @@ namespace Domic.Infrastructure.Implementations.Domain.Repositories.C;
 
 public class TicketCommentCommandRepository(SQLContext context) : ITicketCommentCommandRepository
 {
-    public void Add(TicketComment entity) => context.TicketComments.Add(entity);
+    public Task AddAsync(TicketComment entity, CancellationToken cancellationToken)
+    {
+        context.TicketComments.Add(entity);
+
+        return Task.CompletedTask;
+    }
 }

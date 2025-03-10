@@ -8,9 +8,8 @@ using Domic.Domain.Ticket.Events;
 
 namespace Domic.UseCase.UserUseCase.Events;
 
-public class InActiveUserConsumerEventBusHandler(ITicketCommandRepository ticketCommandRepository, IDateTime dateTime, 
-    ISerializer serializer
-) : IConsumerEventBusHandler<UserActived>
+public class InActiveUserConsumerEventBusHandler(ITicketCommandRepository ticketCommandRepository, IDateTime dateTime) 
+    : IConsumerEventBusHandler<UserActived>
 {
     public void Handle(UserActived @event){}
 
@@ -25,9 +24,9 @@ public class InActiveUserConsumerEventBusHandler(ITicketCommandRepository ticket
         if (tickets.Count != 0)
         {
             foreach (var ticket in tickets)
-                ticket.InActive(dateTime, serializer, @event.UpdatedBy, new[]{ @event.UpdatedRole }, false);
+                ticket.InActive(dateTime, @event.UpdatedBy, @event.UpdatedRole, false);
 
-            ticketCommandRepository.ChangeRange(tickets);
+            await ticketCommandRepository.ChangeRangeAsync(tickets, cancellationToken);
         }
     }
 

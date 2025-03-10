@@ -4,11 +4,12 @@ using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Contracts.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Update;
 
 public class UpdateCommandHandler(ITicketCommandRepository ticketCommandRepository, IDateTime dateTime, 
-    ISerializer serializer
+    ISerializer serializer, [FromKeyedServices("Http2")] IIdentityUser identityUser
 ) : ICommandHandler<UpdateCommand, string>
 {
     private readonly object _validationResult;
@@ -18,8 +19,8 @@ public class UpdateCommandHandler(ITicketCommandRepository ticketCommandReposito
     {
         var ticket = _validationResult as Domain.Ticket.Entities.Ticket;
         
-        ticket.Change(dateTime, serializer, command.CategoryId, command.Title, command.Description, command.Priority, 
-            command.Status, command.UserId, command.UserRoles
+        ticket.Change(dateTime, serializer, identityUser, command.CategoryId, command.Title, command.Description, 
+            command.Priority, command.Status
         );
         
         ticketCommandRepository.Change(ticket);

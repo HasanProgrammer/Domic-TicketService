@@ -1,4 +1,3 @@
-using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Ticket.Grpc;
 using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Enumerations;
@@ -51,15 +50,11 @@ public partial class RpcRequestExtension
     /// <returns></returns>
     public static CreateCommand ToCommand(this CreateRequest request, string token, IJsonWebToken jsonWebToken) 
         => new() {
-            UserId = jsonWebToken.GetIdentityUserId(token),
             CategoryId = request.CategoryId.Value,
-            Username = jsonWebToken.GetUsername(token),
-            UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
             Title = request.Title.Value,
             Description = request.Description.Value,
             Status = (Status)request.Status.Value,
-            Priority = (Priority)request.Priority.Value,
-            UserPermissions = default
+            Priority = (Priority)request.Priority.Value
          };
     
     /// <summary>
@@ -72,15 +67,11 @@ public partial class RpcRequestExtension
     public static UpdateCommand ToCommand(this UpdateRequest request, string token, IJsonWebToken jsonWebToken) 
         => new() {
             Id = request.TicketId.Value,
-            UserId = jsonWebToken.GetIdentityUserId(token),
             CategoryId = request.CategoryId.Value,
-            Username = jsonWebToken.GetUsername(token),
-            UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
             Title = request.Title.Value,
             Description = request.Description.Value,
             Status = (Status)request.Status.Value,
-            Priority = (Priority)request.Priority.Value,
-            UserPermissions = default
+            Priority = (Priority)request.Priority.Value
         };
     
     /// <summary>
@@ -91,13 +82,7 @@ public partial class RpcRequestExtension
     /// <param name="jsonWebToken"></param>
     /// <returns></returns>
     public static ActiveCommand ToCommand(this ActiveRequest request, string token, IJsonWebToken jsonWebToken) 
-        => new() {
-            Id = request.TicketId.Value,
-            UserId = jsonWebToken.GetIdentityUserId(token),
-            Username = jsonWebToken.GetUsername(token),
-            UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
-            UserPermissions = default
-        };
+        => new() { Id = request.TicketId.Value };
     
     /// <summary>
     /// Map InActiveRequest -> InActiveCommand
@@ -107,13 +92,7 @@ public partial class RpcRequestExtension
     /// <param name="jsonWebToken"></param>
     /// <returns></returns>
     public static InActiveCommand ToCommand(this InActiveRequest request, string token, IJsonWebToken jsonWebToken) 
-        => new() {
-            Id = request.TicketId.Value,
-            UserId = jsonWebToken.GetIdentityUserId(token),
-            Username = jsonWebToken.GetUsername(token),
-            UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
-            UserPermissions = default
-        };
+        => new() { Id = request.TicketId.Value };
     
     /// <summary>
     /// Map DeleteRequest -> DeleteCommand
@@ -123,11 +102,5 @@ public partial class RpcRequestExtension
     /// <param name="jsonWebToken"></param>
     /// <returns></returns>
     public static DeleteCommand ToCommand(this DeleteRequest request, string token, IJsonWebToken jsonWebToken) 
-        => new() {
-            Id = request.TicketId.Value,
-            UserId = jsonWebToken.GetIdentityUserId(token),
-            Username = jsonWebToken.GetUsername(token),
-            UserRoles = jsonWebToken.GetRoles(token).AsReadOnly(),
-            UserPermissions = default
-        };
+        => new() { Id = request.TicketId.Value };
 }

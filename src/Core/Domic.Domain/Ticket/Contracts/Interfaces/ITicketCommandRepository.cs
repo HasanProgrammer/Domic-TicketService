@@ -22,13 +22,11 @@ public interface ITicketCommandRepository : ICommandRepository<Entities.Ticket, 
     /// <param name="condition"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public Task<List<Entities.Ticket>> FindByCategoryIdConditionallyAsync(string categoryId, 
-        Expression<Func<Entities.Ticket, bool>> condition, CancellationToken cancellationToken
-    );
+    public Task<List<Entities.Ticket>> FindByCategoryIdAsync(string categoryId, CancellationToken cancellationToken);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="entities"></param>
-    public void ChangeRange(List<Entities.Ticket> entities);
+    public Task ChangeRangeAsync(List<Entities.Ticket> entities, CancellationToken cancellationToken);
 }

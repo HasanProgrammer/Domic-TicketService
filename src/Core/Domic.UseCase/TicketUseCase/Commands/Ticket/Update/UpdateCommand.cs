@@ -1,10 +1,9 @@
-﻿using Domic.Core.UseCase.Contracts.Abstracts;
-using Domic.Core.UseCase.Contracts.Interfaces;
+﻿using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Enumerations;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Update;
 
-public class UpdateCommand : Auditable, ICommand<string>
+public class UpdateCommand : ICommand<string>
 {
     public required string Id { get; set; }
     public required string CategoryId { get; init; }

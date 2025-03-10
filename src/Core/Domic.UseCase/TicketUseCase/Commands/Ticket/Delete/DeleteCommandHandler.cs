@@ -4,11 +4,12 @@ using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.UseCase.Attributes;
 using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Contracts.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Domic.UseCase.TicketUseCase.Commands.Ticket.Delete;
 
 public class DeleteCommandHandler(ITicketCommandRepository ticketCommandRepository, IDateTime dateTime, 
-    ISerializer serializer
+    ISerializer serializer, [FromKeyedServices("Http2")] IIdentityUser identityUser
 ) : ICommandHandler<DeleteCommand, string>
 {
     private readonly object _validationResult;
@@ -18,7 +19,7 @@ public class DeleteCommandHandler(ITicketCommandRepository ticketCommandReposito
     {
         var ticket = _validationResult as Domain.Ticket.Entities.Ticket;
         
-        ticket.Delete(dateTime, serializer, command.UserId, command.UserRoles);
+        ticket.Delete(dateTime, serializer, identityUser);
         
         ticketCommandRepository.Change(ticket);
 

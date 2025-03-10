@@ -31,30 +31,31 @@ public class TicketComment : Entity<string>
     /// <param name="globalUniqueIdGenerator"></param>
     /// <param name="dateTime"></param>
     /// <param name="serializer"></param>
+    /// <param name="identityUser"></param>
     /// <param name="ticketId"></param>
     /// <param name="comment"></param>
-    /// <param name="createdBy"></param>
-    /// <param name="createdRoles"></param>
     public TicketComment(IGlobalUniqueIdGenerator globalUniqueIdGenerator, IDateTime dateTime, ISerializer serializer,
-        string ticketId, string comment, string createdBy, IReadOnlyCollection<string> createdRoles
+        IIdentityUser identityUser, string ticketId, string comment
     )
     {
-        var roles = serializer.Serialize(createdRoles);
+        var roles = serializer.Serialize(identityUser.GetRoles());
         var nowDateTime = DateTime.Now;
         var nowPersianDateTime = dateTime.ToPersianShortDate(nowDateTime);
 
         Id = globalUniqueIdGenerator.GetRandom(6);
         TicketId = ticketId;
         Comment = new Comment(comment);
+        
+        //audit
         CreatedAt = new CreatedAt(nowDateTime, nowPersianDateTime);
-        CreatedBy = createdBy;
+        CreatedBy = identityUser.GetIdentity();
         CreatedRole = roles;
         
         AddEvent(
             new TicketCommentCreated {
                 Id = Id,
                 Comment = comment,
-                CreatedBy = createdBy,
+                CreatedBy = CreatedBy,
                 CreatedRole = roles,
                 CreatedAt_EnglishDate = nowDateTime,
                 CreatedAt_PersianDate = nowPersianDateTime

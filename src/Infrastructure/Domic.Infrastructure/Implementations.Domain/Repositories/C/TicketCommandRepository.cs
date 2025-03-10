@@ -15,14 +15,22 @@ public class TicketCommandRepository(SQLContext context) : ITicketCommandReposit
                         .Where(condition)
                         .ToListAsync(cancellationToken);
 
-    public Task<List<Ticket>> FindByCategoryIdConditionallyAsync(string categoryId,
-        Expression<Func<Ticket, bool>> condition, CancellationToken cancellationToken
-    ) => context.Tickets.AsNoTracking()
-                        .Where(ticket => ticket.CategoryId == categoryId)
-                        .Where(condition)
-                        .ToListAsync(cancellationToken);
+    public Task<List<Ticket>> FindByCategoryIdAsync(string categoryId, CancellationToken cancellationToken) 
+        =>  context.Tickets.AsNoTracking()
+                           .Where(ticket => ticket.CategoryId == categoryId)
+                           .ToListAsync(cancellationToken);
 
-    public void Add(Ticket entity) => context.Tickets.Add(entity);
+    public Task AddAsync(Ticket entity, CancellationToken cancellationToken)
+    {
+        context.Tickets.Add(entity);
 
-    public void ChangeRange(List<Ticket> entities) => context.Tickets.UpdateRange(entities);
+        return Task.CompletedTask;
+    }
+
+    public Task ChangeRangeAsync(List<Ticket> entities, CancellationToken cancellationToken)
+    {
+        context.Tickets.UpdateRange(entities);
+
+        return Task.CompletedTask;
+    }
 }

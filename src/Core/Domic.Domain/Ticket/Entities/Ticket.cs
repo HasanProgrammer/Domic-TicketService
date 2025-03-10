@@ -37,19 +37,17 @@ public class Ticket : Entity<string>
     /// </summary>
     /// <param name="globalUniqueIdGeneratorstring"></param>
     /// <param name="dateTime"></param>
+    /// <param name="identityUser"></param>
     /// <param name="serializer"></param>
     /// <param name="categoryId"></param>
     /// <param name="title"></param>
     /// <param name="description"></param>
     /// <param name="priority"></param>
-    /// <param name="createdBy"></param>
-    /// <param name="createdRoles"></param>
-    public Ticket(IGlobalUniqueIdGenerator globalUniqueIdGeneratorstring, IDateTime dateTime, 
-        ISerializer serializer, string categoryId, string title, string description, Priority priority, string createdBy, 
-        IReadOnlyCollection<string> createdRoles
+    public Ticket(IGlobalUniqueIdGenerator globalUniqueIdGeneratorstring, IDateTime dateTime, IIdentityUser identityUser,
+        ISerializer serializer, string categoryId, string title, string description, Priority priority
     )
     {
-        var roles = serializer.Serialize(createdRoles);
+        var roles = serializer.Serialize(identityUser.GetRoles());
         var nowDateTime = DateTime.Now;
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
 
@@ -59,7 +57,9 @@ public class Ticket : Entity<string>
         Description = new Description(description);
         Status = Status.Open;
         Priority = priority;
-        CreatedBy = createdBy;
+        
+        //audit
+        CreatedBy = identityUser.GetIdentity();
         CreatedRole = roles;
         CreatedAt = new CreatedAt(nowDateTime, nowPersianDate);
         
@@ -71,7 +71,7 @@ public class Ticket : Entity<string>
                 Description = description,
                 Status = (int)Status,
                 Priority = (int)Priority,
-                CreatedBy = createdBy,
+                CreatedBy = CreatedBy,
                 CreatedRole = roles,
                 CreatedAt_EnglishDate = nowDateTime,
                 CreatedAt_PersianDate = nowPersianDate
@@ -88,18 +88,17 @@ public class Ticket : Entity<string>
     /// </summary>
     /// <param name="dateTime"></param>
     /// <param name="serializer"></param>
+    /// <param name="identityUser"></param>
     /// <param name="categoryId"></param>
     /// <param name="title"></param>
     /// <param name="description"></param>
     /// <param name="priority"></param>
     /// <param name="status"></param>
-    /// <param name="updatedBy"></param>
-    /// <param name="updatedRoles"></param>
-    public void Change(IDateTime dateTime, ISerializer serializer, string categoryId, string title, string description,
-        Priority priority, Status status, string updatedBy, IReadOnlyCollection<string> updatedRoles
+    public void Change(IDateTime dateTime, ISerializer serializer, IIdentityUser identityUser,
+        string categoryId, string title, string description, Priority priority, Status status
     )
     {
-        var roles = serializer.Serialize(updatedRoles);
+        var roles = serializer.Serialize(identityUser.GetRoles());
         var nowDateTime = DateTime.Now;
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
 
@@ -108,7 +107,9 @@ public class Ticket : Entity<string>
         Description = new Description(description);
         Priority = priority;
         Status = status;
-        UpdatedBy = updatedBy;
+        
+        //audit
+        UpdatedBy = identityUser.GetIdentity();
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
         
@@ -120,7 +121,7 @@ public class Ticket : Entity<string>
                 Description = description,
                 Priority = (int)priority,
                 Status = (int)status,
-                UpdatedBy = updatedBy,
+                UpdatedBy = UpdatedBy,
                 UpdatedRole = roles,
                 UpdatedAt_EnglishDate = nowDateTime,
                 UpdatedAt_PersianDate = nowPersianDate
@@ -133,19 +134,18 @@ public class Ticket : Entity<string>
     /// </summary>
     /// <param name="dateTime"></param>
     /// <param name="serializer"></param>
-    /// <param name="updatedBy"></param>
-    /// <param name="updatedRoles"></param>
+    /// <param name="identityUser"></param>
     /// <param name="withEventRaising"></param>
-    public void Active(IDateTime dateTime, ISerializer serializer, string updatedBy, 
-        IReadOnlyCollection<string> updatedRoles, bool withEventRaising = true
-    )
+    public void Active(IDateTime dateTime, ISerializer serializer, IIdentityUser identityUser, bool withEventRaising = true)
     {
-        var roles = serializer.Serialize(updatedRoles);
+        var roles = serializer.Serialize(identityUser.GetRoles());
         var nowDateTime = DateTime.Now;
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
         
         IsActive = IsActive.Active;
-        UpdatedBy = updatedBy;
+        
+        //audit
+        UpdatedBy = identityUser.GetIdentity();
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
 
@@ -153,7 +153,7 @@ public class Ticket : Entity<string>
             AddEvent(
                 new TicketActived {
                     Id = Id,
-                    UpdatedBy = updatedBy,
+                    UpdatedBy = UpdatedBy,
                     UpdatedRole = roles,
                     UpdatedAt_EnglishDate = nowDateTime,
                     UpdatedAt_PersianDate = nowPersianDate
@@ -165,20 +165,50 @@ public class Ticket : Entity<string>
     /// 
     /// </summary>
     /// <param name="dateTime"></param>
-    /// <param name="serializer"></param>
     /// <param name="updatedBy"></param>
-    /// <param name="updatedRoles"></param>
+    /// <param name="updatedRole"></param>
     /// <param name="withEventRaising"></param>
-    public void InActive(IDateTime dateTime, ISerializer serializer, string updatedBy, 
-        IReadOnlyCollection<string> updatedRoles, bool withEventRaising = true
-    )
+    public void Active(IDateTime dateTime, string updatedBy, string updatedRole, bool withEventRaising = true)
     {
-        var roles = serializer.Serialize(updatedRoles);
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
+        
+        IsActive = IsActive.Active;
+        
+        //audit
+        UpdatedBy = updatedBy;
+        UpdatedRole = updatedRole;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
+
+        if(withEventRaising)
+            AddEvent(
+                new TicketActived {
+                    Id = Id,
+                    UpdatedBy = UpdatedBy,
+                    UpdatedRole = UpdatedRole,
+                    UpdatedAt_EnglishDate = nowDateTime,
+                    UpdatedAt_PersianDate = nowPersianDate
+                }
+            );
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
+    /// <param name="identityUser"></param>
+    /// <param name="withEventRaising"></param>
+    public void InActive(IDateTime dateTime, ISerializer serializer, IIdentityUser identityUser, bool withEventRaising = true)
+    {
+        var roles = serializer.Serialize(identityUser.GetRoles());
         var nowDateTime = DateTime.Now;
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
         
         IsActive = IsActive.InActive;
-        UpdatedBy = updatedBy;
+        
+        //audit
+        UpdatedBy = identityUser.GetIdentity();
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
 
@@ -186,7 +216,7 @@ public class Ticket : Entity<string>
             AddEvent(
                 new TicketInActived {
                     Id = Id,
-                    UpdatedBy = updatedBy,
+                    UpdatedBy = UpdatedBy,
                     UpdatedRole = roles,
                     UpdatedAt_EnglishDate = nowDateTime,
                     UpdatedAt_PersianDate = nowPersianDate
@@ -198,20 +228,48 @@ public class Ticket : Entity<string>
     /// 
     /// </summary>
     /// <param name="dateTime"></param>
-    /// <param name="serializer"></param>
-    /// <param name="updatedBy"></param>
-    /// <param name="updatedRoles"></param>
+    /// <param name="updateBy"></param>
+    /// <param name="updateRole"></param>
     /// <param name="withEventRaising"></param>
-    public void Delete(IDateTime dateTime, ISerializer serializer, string updatedBy, 
-        IReadOnlyCollection<string> updatedRoles, bool withEventRaising = true
-    )
+    public void InActive(IDateTime dateTime, string updateBy, string updateRole, bool withEventRaising = true)
     {
-        var roles = serializer.Serialize(updatedRoles);
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
+        
+        IsActive = IsActive.InActive;
+        
+        //audit
+        UpdatedBy = updateBy;
+        UpdatedRole = updateRole;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
+
+        if(withEventRaising)
+            AddEvent(
+                new TicketInActived {
+                    Id = Id,
+                    UpdatedBy = UpdatedBy,
+                    UpdatedRole = updateRole,
+                    UpdatedAt_EnglishDate = nowDateTime,
+                    UpdatedAt_PersianDate = nowPersianDate
+                }
+            );
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <param name="serializer"></param>
+    /// <param name="identityUser"></param>
+    /// <param name="withEventRaising"></param>
+    public void Delete(IDateTime dateTime, ISerializer serializer, IIdentityUser identityUser, bool withEventRaising = true)
+    {
+        var roles = serializer.Serialize(identityUser.GetRoles());
         var nowDateTime = DateTime.Now;
         var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
         
         IsDeleted = IsDeleted.Delete;
-        UpdatedBy = updatedBy;
+        UpdatedBy = identityUser.GetIdentity();
         UpdatedRole = roles;
         UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
 
@@ -219,8 +277,39 @@ public class Ticket : Entity<string>
             AddEvent(
                 new TicketDeleted {
                     Id = Id,
-                    UpdatedBy = updatedBy,
+                    UpdatedBy = UpdatedBy,
                     UpdatedRole = roles,
+                    UpdatedAt_EnglishDate = nowDateTime,
+                    UpdatedAt_PersianDate = nowPersianDate
+                }
+            );
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <param name="updateBy"></param>
+    /// <param name="updatedRole"></param>
+    /// <param name="withEventRaising"></param>
+    public void Delete(IDateTime dateTime, string updateBy, string updatedRole, bool withEventRaising = true)
+    {
+        var nowDateTime = DateTime.Now;
+        var nowPersianDate = dateTime.ToPersianShortDate(nowDateTime);
+        
+        IsDeleted = IsDeleted.Delete;
+        
+        //audit
+        UpdatedBy = updateBy;
+        UpdatedRole = updatedRole;
+        UpdatedAt = new UpdatedAt(nowDateTime, nowPersianDate);
+
+        if(withEventRaising)
+            AddEvent(
+                new TicketDeleted {
+                    Id = Id,
+                    UpdatedBy = UpdatedBy,
+                    UpdatedRole = UpdatedRole,
                     UpdatedAt_EnglishDate = nowDateTime,
                     UpdatedAt_PersianDate = nowPersianDate
                 }

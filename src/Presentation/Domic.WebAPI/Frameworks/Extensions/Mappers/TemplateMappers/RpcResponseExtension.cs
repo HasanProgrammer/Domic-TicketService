@@ -1,3 +1,4 @@
+using Domic.Core.Common.ClassExtensions;
 using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Ticket.Grpc;
 using Domic.UseCase.TicketUseCase.DTOs;
@@ -22,8 +23,8 @@ public static partial class RpcResponseExtension
     /// <returns></returns>
     public static ReadOneResponse ToResponse(this TicketDto result, IConfiguration configuration, ISerializer serializer)
         => new() {
-               Code = configuration.GetValue<int>("StatusCode:SuccessFetchData"),
-               Message = configuration.GetValue<string>("Message:FA:SuccessFetchData"),
+               Code = configuration.GetSuccessStatusCode(),
+               Message = configuration.GetSuccessFetchDataMessage(),
                Body = new ReadOneResponseBody {
                    Ticket = serializer.Serialize(result)
                }
@@ -39,8 +40,8 @@ public static partial class RpcResponseExtension
     public static ReadAllPaginatedResponse ToResponse(this List<TicketDto> result, 
         IConfiguration configuration, ISerializer serializer
     ) => new() {
-            Code = configuration.GetValue<int>("StatusCode:SuccessFetchData"),
-            Message = configuration.GetValue<string>("Message:FA:SuccessFetchData"),
+            Code = configuration.GetSuccessStatusCode(),
+            Message = configuration.GetSuccessFetchDataMessage(),
             Body = new ReadAllPaginatedResponseBody {
                 Tickets = serializer.Serialize(result)
             }
@@ -63,32 +64,32 @@ public partial class RpcResponseExtension
         
         if (typeof(TResponse) == typeof(CreateResponse))
             response = new CreateResponse {
-                Code = configuration.GetValue<int>("StatusCode:SuccessCreate"),
-                Message = configuration.GetValue<string>("Message:FA:SuccessCreate"),
+                Code = configuration.GetSuccessCreateStatusCode(),
+                Message = configuration.GetSuccessCreateMessage(),
                 Body = new CreateResponseBody { TicketId = result }
             };
         else if(typeof(TResponse) == typeof(UpdateResponse))
             response = new UpdateResponse {
-                Code = configuration.GetValue<int>("StatusCode:Success"),
-                Message = configuration.GetValue<string>("Message:FA:SuccessUpdate"),
+                Code = configuration.GetSuccessStatusCode(),
+                Message = configuration.GetSuccessUpdateMessage(),
                 Body = new UpdateResponseBody { TicketId = result }
             };
         if(typeof(TResponse) == typeof(ActiveResponse))
             response = new ActiveResponse {
-                Code = configuration.GetValue<int>("StatusCode:Success"),
-                Message = configuration.GetValue<string>("Message:FA:SuccessUpdate"),
+                Code = configuration.GetSuccessStatusCode(),
+                Message = configuration.GetSuccessUpdateMessage(),
                 Body = new ActiveResponseBody { TicketId = result }
             };
         if(typeof(TResponse) == typeof(InActiveResponse))
             response = new InActiveResponse {
-                Code = configuration.GetValue<int>("StatusCode:Success"),
-                Message = configuration.GetValue<string>("Message:FA:SuccessUpdate"),
+                Code = configuration.GetSuccessStatusCode(),
+                Message = configuration.GetSuccessUpdateMessage(),
                 Body = new InActiveResponseBody { TicketId = result }
             };
         if(typeof(TResponse) == typeof(DeleteResponse))
             response = new DeleteResponse {
-                Code = configuration.GetValue<int>("StatusCode:Success"),
-                Message = configuration.GetValue<string>("Message:FA:SuccessDelete"),
+                Code = configuration.GetSuccessStatusCode(),
+                Message = configuration.GetSuccessUpdateMessage(),
                 Body = new DeleteResponseBody { TicketId = result }
             };
 
