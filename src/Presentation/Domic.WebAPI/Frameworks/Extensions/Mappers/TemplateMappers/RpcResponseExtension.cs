@@ -68,6 +68,12 @@ public partial class RpcResponseExtension
                 Message = configuration.GetSuccessCreateMessage(),
                 Body = new CreateResponseBody { TicketId = result }
             };
+        if (typeof(TResponse) == typeof(CreateCommentResponse))
+            response = new CreateCommentResponse {
+                Code = configuration.GetSuccessCreateStatusCode(),
+                Message = configuration.GetSuccessCreateMessage(),
+                Body = new CreateCommentResponseBody { TicketCommentId = result }
+            };
         else if(typeof(TResponse) == typeof(UpdateResponse))
             response = new UpdateResponse {
                 Code = configuration.GetSuccessStatusCode(),

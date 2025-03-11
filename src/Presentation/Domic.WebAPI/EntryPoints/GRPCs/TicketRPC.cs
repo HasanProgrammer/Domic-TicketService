@@ -1,7 +1,6 @@
 ﻿using Domic.Core.Domain.Contracts.Interfaces;
 using Domic.Core.Ticket.Grpc;
 using Domic.Core.UseCase.Contracts.Interfaces;
-using Domic.Core.WebAPI.Extensions;
 using Domic.UseCase.TicketUseCase.Queries.CheckExist;
 using Domic.WebAPI.Frameworks.Extensions.Mappers.TemplateMappers;
 using Grpc.Core;
@@ -67,7 +66,7 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
     /// <returns></returns>
     public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
     {
-        var command = request.ToCommand(context.GetHttpContext().GetTokenOfGrpcHeader(), jsonWebToken);
+        var command = request.ToCommand();
 
         var result = await mediator.DispatchAsync(command, context.CancellationToken);
 
@@ -80,9 +79,26 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
     /// <param name="request"></param>
     /// <param name="context"></param>
     /// <returns></returns>
+    public override async Task<CreateCommentResponse> CreateComment(CreateCommentRequest request, 
+        ServerCallContext context
+    )
+    {
+        var command = request.ToCommand();
+
+        var result = await mediator.DispatchAsync(command, context.CancellationToken);
+
+        return result.ToResponse<CreateCommentResponse>(configuration);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
     {
-        var command = request.ToCommand(context.GetHttpContext().GetTokenOfGrpcHeader(), jsonWebToken);
+        var command = request.ToCommand();
 
         var result = await mediator.DispatchAsync(command, context.CancellationToken);
 
@@ -97,7 +113,7 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
     /// <returns></returns>
     public override async Task<ActiveResponse> Active(ActiveRequest request, ServerCallContext context)
     {
-        var command = request.ToCommand(context.GetHttpContext().GetTokenOfGrpcHeader(), jsonWebToken);
+        var command = request.ToCommand();
 
         var result = await mediator.DispatchAsync(command, context.CancellationToken);
 
@@ -112,7 +128,7 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
     /// <returns></returns>
     public override async Task<InActiveResponse> InActive(InActiveRequest request, ServerCallContext context)
     {
-        var command = request.ToCommand(context.GetHttpContext().GetTokenOfGrpcHeader(), jsonWebToken);
+        var command = request.ToCommand();
 
         var result = await mediator.DispatchAsync(command, context.CancellationToken);
 
@@ -127,7 +143,7 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
     /// <returns></returns>
     public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
     {
-        var command = request.ToCommand(context.GetHttpContext().GetTokenOfGrpcHeader(), jsonWebToken);
+        var command = request.ToCommand();
 
         var result = await mediator.DispatchAsync(command, context.CancellationToken);
 

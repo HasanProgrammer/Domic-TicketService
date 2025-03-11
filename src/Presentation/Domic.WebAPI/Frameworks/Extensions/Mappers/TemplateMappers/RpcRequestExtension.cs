@@ -1,5 +1,4 @@
 using Domic.Core.Ticket.Grpc;
-using Domic.Core.UseCase.Contracts.Interfaces;
 using Domic.Domain.Ticket.Enumerations;
 using Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
 using Domic.UseCase.TicketUseCase.Commands.Ticket.Create;
@@ -45,10 +44,8 @@ public partial class RpcRequestExtension
     /// Map CreateRequest -> CreateCommand
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="token"></param>
-    /// <param name="jsonWebToken"></param>
     /// <returns></returns>
-    public static CreateCommand ToCommand(this CreateRequest request, string token, IJsonWebToken jsonWebToken) 
+    public static CreateCommand ToCommand(this CreateRequest request) 
         => new() {
             CategoryId = request.CategoryId.Value,
             Title = request.Title.Value,
@@ -58,13 +55,23 @@ public partial class RpcRequestExtension
          };
     
     /// <summary>
+    /// Map CreateCommentRequest -> TicketComment.CreateCommand
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public static UseCase.TicketUseCase.Commands.TicketComment.Create.CreateCommand ToCommand(
+        this CreateCommentRequest request
+    ) => new() {
+        TicketId = request.TicketId.Value,
+        Comment = request.Comment.Value
+    };
+    
+    /// <summary>
     /// Map UpdateRequest -> UpdateCommand
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="token"></param>
-    /// <param name="jsonWebToken"></param>
     /// <returns></returns>
-    public static UpdateCommand ToCommand(this UpdateRequest request, string token, IJsonWebToken jsonWebToken) 
+    public static UpdateCommand ToCommand(this UpdateRequest request) 
         => new() {
             Id = request.TicketId.Value,
             CategoryId = request.CategoryId.Value,
@@ -78,29 +85,23 @@ public partial class RpcRequestExtension
     /// Map ActiveRequest -> ActiveCommand
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="token"></param>
-    /// <param name="jsonWebToken"></param>
     /// <returns></returns>
-    public static ActiveCommand ToCommand(this ActiveRequest request, string token, IJsonWebToken jsonWebToken) 
+    public static ActiveCommand ToCommand(this ActiveRequest request) 
         => new() { Id = request.TicketId.Value };
     
     /// <summary>
-    /// Map InActiveRequest -> InActiveCommand
+    /// 
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="token"></param>
-    /// <param name="jsonWebToken"></param>
     /// <returns></returns>
-    public static InActiveCommand ToCommand(this InActiveRequest request, string token, IJsonWebToken jsonWebToken) 
+    public static InActiveCommand ToCommand(this InActiveRequest request) 
         => new() { Id = request.TicketId.Value };
     
     /// <summary>
     /// Map DeleteRequest -> DeleteCommand
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="token"></param>
-    /// <param name="jsonWebToken"></param>
     /// <returns></returns>
-    public static DeleteCommand ToCommand(this DeleteRequest request, string token, IJsonWebToken jsonWebToken) 
+    public static DeleteCommand ToCommand(this DeleteRequest request) 
         => new() { Id = request.TicketId.Value };
 }
