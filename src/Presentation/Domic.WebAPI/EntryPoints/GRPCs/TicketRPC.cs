@@ -104,49 +104,4 @@ public class TicketRPC(IMediator mediator, IConfiguration configuration, ISerial
 
         return result.ToResponse<UpdateResponse>(configuration);
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="request"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
-    public override async Task<ActiveResponse> Active(ActiveRequest request, ServerCallContext context)
-    {
-        var command = request.ToCommand();
-
-        var result = await mediator.DispatchAsync(command, context.CancellationToken);
-
-        return result.ToResponse<ActiveResponse>(configuration);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="request"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
-    public override async Task<InActiveResponse> InActive(InActiveRequest request, ServerCallContext context)
-    {
-        var command = request.ToCommand();
-
-        var result = await mediator.DispatchAsync(command, context.CancellationToken);
-
-        return result.ToResponse<InActiveResponse>(configuration);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="request"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
-    public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
-    {
-        var command = request.ToCommand();
-
-        var result = await mediator.DispatchAsync(command, context.CancellationToken);
-
-        return result.ToResponse<DeleteResponse>(configuration);
-    }
 }

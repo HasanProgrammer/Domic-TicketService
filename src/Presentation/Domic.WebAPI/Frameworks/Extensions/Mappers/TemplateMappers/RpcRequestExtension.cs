@@ -1,9 +1,6 @@
 using Domic.Core.Ticket.Grpc;
 using Domic.Domain.Ticket.Enumerations;
-using Domic.UseCase.TicketUseCase.Commands.Ticket.Active;
 using Domic.UseCase.TicketUseCase.Commands.Ticket.Create;
-using Domic.UseCase.TicketUseCase.Commands.Ticket.Delete;
-using Domic.UseCase.TicketUseCase.Commands.Ticket.InActive;
 using Domic.UseCase.TicketUseCase.Commands.Ticket.Update;
 using Domic.UseCase.TicketUseCase.Queries.CheckExist;
 using Domic.UseCase.TicketUseCase.Queries.ReadAllPaginate;
@@ -80,28 +77,4 @@ public partial class RpcRequestExtension
             Status = (Status)request.Status.Value,
             Priority = (Priority)request.Priority.Value
         };
-    
-    /// <summary>
-    /// Map ActiveRequest -> ActiveCommand
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    public static ActiveCommand ToCommand(this ActiveRequest request) 
-        => new() { Id = request.TicketId.Value };
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    public static InActiveCommand ToCommand(this InActiveRequest request) 
-        => new() { Id = request.TicketId.Value };
-    
-    /// <summary>
-    /// Map DeleteRequest -> DeleteCommand
-    /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
-    public static DeleteCommand ToCommand(this DeleteRequest request) 
-        => new() { Id = request.TicketId.Value };
 }
