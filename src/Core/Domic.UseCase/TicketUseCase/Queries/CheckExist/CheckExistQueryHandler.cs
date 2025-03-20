@@ -7,5 +7,5 @@ public class CheckExistQueryHandler(ITicketCommandRepository ticketCommandReposi
     : IQueryHandler<CheckExistQuery, bool>
 {
     public async Task<bool> HandleAsync(CheckExistQuery query, CancellationToken cancellationToken)
-        => await ticketCommandRepository.FindByIdAsync(query.Id, cancellationToken) is not null;
+        => await ticketCommandRepository.IsExistByIdAsync(query.Id, cancellationToken);
 }
