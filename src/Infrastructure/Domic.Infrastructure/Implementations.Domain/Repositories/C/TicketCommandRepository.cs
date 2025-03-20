@@ -8,6 +8,9 @@ namespace Domic.Infrastructure.Implementations.Domain.Repositories.C;
 
 public class TicketCommandRepository(SQLContext context) : ITicketCommandRepository
 {
+    public Task<bool> IsExistByIdAsync(string id, CancellationToken cancellationToken)
+        => context.Tickets.AnyAsync(ticket => ticket.Id == id, cancellationToken);
+    
     public Task<List<Ticket>> FindByUserIdConditionallyAsync(string userId, Expression<Func<Ticket, bool>> condition, 
         CancellationToken cancellationToken
     ) => context.Tickets.AsNoTracking()

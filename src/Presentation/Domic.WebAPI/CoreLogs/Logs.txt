@@ -1,0 +1,53 @@
+
+ Date: 1403/12/29 | Message: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20 | Source: RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20
+   at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+   at RabbitMQ.Client.Impl.ModelBase.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.Impl.AutorecoveringModel.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.IModelExensions.BasicConsume(IModel model, IBasicConsumer consumer, String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments)
+   at Domic.Core.Infrastructure.Concretes.ExternalMessageBroker.SubscribeAsynchronously(String queue, CancellationToken cancellationToken) 
+
+
+ Date: 1403/12/30 | Message: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20 | Source: RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20
+   at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+   at RabbitMQ.Client.Impl.ModelBase.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.Impl.AutorecoveringModel.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.IModelExensions.BasicConsume(IModel model, IBasicConsumer consumer, String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments)
+   at Domic.Core.Infrastructure.Concretes.ExternalMessageBroker.SubscribeAsynchronously(String queue, CancellationToken cancellationToken) 
+
+
+ Date: 1403/12/30 | Message: The method or operation is not implemented. | Source: System.NotImplementedException: The method or operation is not implemented.
+   at Domic.Core.Domain.Contracts.Interfaces.IRepository`1.FindByIdAsync(Object id, CancellationToken cancellationToken)
+   at Domic.UseCase.TicketUseCase.Commands.TicketComment.Create.CreateCommandValidator.ValidateAsync(CreateCommand input, CancellationToken cancellationToken) in D:\Programming\Hasan Company\Programming ASP\DotrisCompany\TicketService\src\Core\Domic.UseCase\TicketUseCase\Commands\TicketComment\Create\CreateCommandValidator.cs:line 11
+   at CallSite.Target(Closure, CallSite, Object)
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at Domic.Core.Infrastructure.Concretes.Mediator._ValidationAsync[TResult](Object commandHandler, Type commandHandlerType, MethodInfo commandHandlerMethod, ICommand`1 command, CancellationToken cancellationToken)
+   at Domic.Core.Infrastructure.Concretes.Mediator.DispatchAsync[TResult](ICommand`1 command, CancellationToken cancellationToken)
+   at Domic.WebAPI.EntryPoints.GRPCs.TicketRPC.CreateComment(CreateCommentRequest request, ServerCallContext context) in D:\Programming\Hasan Company\Programming ASP\DotrisCompany\TicketService\src\Presentation\Domic.WebAPI\EntryPoints\GRPCs\TicketRPC.cs:line 88
+   at Grpc.Shared.Server.UnaryServerMethodInvoker`3.ResolvedInterceptorInvoker(TRequest resolvedRequest, ServerCallContext resolvedContext)
+   at Grpc.Shared.Server.UnaryServerMethodInvoker`3.ResolvedInterceptorInvoker(TRequest resolvedRequest, ServerCallContext resolvedContext)
+   at Domic.Core.WebAPI.Middlewares.FullExceptionHandlerInterceptor.UnaryServerHandler[TRequest,TResponse](TRequest request, ServerCallContext context, UnaryServerMethod`2 continuation) 
+
+
+ Date: 1403/12/30 | Message: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20 | Source: RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20
+   at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+   at RabbitMQ.Client.Impl.ModelBase.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.Impl.AutorecoveringModel.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.IModelExensions.BasicConsume(IModel model, IBasicConsumer consumer, String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments)
+   at Domic.Core.Infrastructure.Concretes.ExternalMessageBroker.SubscribeAsynchronously(String queue, CancellationToken cancellationToken) 
+
+
+ Date: 1403/12/30 | Message: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20 | Source: RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20
+   at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+   at RabbitMQ.Client.Impl.ModelBase.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.Impl.AutorecoveringModel.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.IModelExensions.BasicConsume(IModel model, IBasicConsumer consumer, String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments)
+   at Domic.Core.Infrastructure.Concretes.ExternalMessageBroker.SubscribeAsynchronously(String queue, CancellationToken cancellationToken) 
+
+
+ Date: 1403/12/30 | Message: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20 | Source: RabbitMQ.Client.Exceptions.OperationInterruptedException: The AMQP operation was interrupted: AMQP close-reason, initiated by Peer, code=404, text='NOT_FOUND - no queue 'Ticket_Category_Queue' in vhost '/'', classId=60, methodId=20
+   at RabbitMQ.Client.Impl.SimpleBlockingRpcContinuation.GetReply(TimeSpan timeout)
+   at RabbitMQ.Client.Impl.ModelBase.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.Impl.AutorecoveringModel.BasicConsume(String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments, IBasicConsumer consumer)
+   at RabbitMQ.Client.IModelExensions.BasicConsume(IModel model, IBasicConsumer consumer, String queue, Boolean autoAck, String consumerTag, Boolean noLocal, Boolean exclusive, IDictionary`2 arguments)
+   at Domic.Core.Infrastructure.Concretes.ExternalMessageBroker.SubscribeAsynchronously(String queue, CancellationToken cancellationToken) 
+

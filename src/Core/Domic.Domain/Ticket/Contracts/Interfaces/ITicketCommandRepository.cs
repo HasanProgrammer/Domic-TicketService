@@ -8,6 +8,14 @@ public interface ITicketCommandRepository : ICommandRepository<Entities.Ticket, 
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task<bool> IsExistByIdAsync(string id, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="userId"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>

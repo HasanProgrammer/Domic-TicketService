@@ -8,9 +8,7 @@ public class CreateCommandValidator(ITicketCommandRepository ticketCommandReposi
 {
     public async Task<object> ValidateAsync(CreateCommand input, CancellationToken cancellationToken)
     {
-        var ticketComment = await ticketCommandRepository.FindByIdAsync(input.TicketId, cancellationToken);
-
-        if (ticketComment is null)
+        if (!await ticketCommandRepository.IsExistByIdAsync(input.TicketId, cancellationToken))
             throw new UseCaseException(string.Format("تیکتی با شناسه {0} وجود خارجی ندارد!", input.TicketId));
 
         return default;
