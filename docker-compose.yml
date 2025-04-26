@@ -30,12 +30,12 @@ services:
       - I-RabbitMQ-Username=
       - I-RabbitMQ-Password=
       - E-RedisConnectionString=domic.redis:6379
-      - I-RedisConnectionString=
+      - I-RedisConnectionString=domic.ticket.redis
       - MongoConnectionString=
       - C-SqlServerConnectionString=Server=domic.ticket.command.sql.server,1700;Database=TicketService;User ID=sa;Password=Domic123!@#;Persist Security Info=True;MultipleActiveResultSets=True;
       - Q-SqlServerConnectionString=
       - Host=domic.ticket.api
-      - Port=80
+      - Port=443
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Domic123!@#
@@ -54,6 +54,15 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Domic123!@#
+  
+  domic.ticket.redis:
+    networks:
+      - domic
+    image: 'redis'
+    container_name: 'ticket_redis'
+    command: 'redis-server'
+    ports:
+      - 5555:6379
 
 volumes:
   log:
