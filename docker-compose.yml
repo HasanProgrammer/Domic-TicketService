@@ -15,7 +15,7 @@ services:
       - "3010-3020:443"
     volumes:
       - log:/app/CoreLogs
-      - ~\.aspnet\https\:/https/
+      - ~/services/Domic-TicketService/.https/:/https/
     environment:
       - Elastic-Host=http://domic.elastic.search:9200
       - Elastic-Index=ticket
